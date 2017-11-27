@@ -27,6 +27,7 @@ namespace Partfinder7000.UITests
         [Test]
         public void CanViewCameraScreen()
         {
+            /*
             if (TestEnvironment.Platform != TestPlatform.Local)
             {
                 AppResult[] results = app.WaitForElement("OK");
@@ -34,6 +35,7 @@ namespace Partfinder7000.UITests
                 app.Screenshot("Camera Prompt");
                 app.Tap("OK");
             }
+            */
 
             app.WaitForElement(e => e.Id("takePhotoButton"));
             app.Screenshot("Camera View");
