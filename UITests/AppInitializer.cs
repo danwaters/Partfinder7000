@@ -15,7 +15,7 @@ namespace Partfinder7000.UITests
                 return ConfigureApp.Android.StartApp();
             }
 
-            return ConfigureApp.iOS.StartApp();
+            return ConfigureApp.iOS.InstalledApp("com.danwaters.azuresample.Partfinder7000").StartApp();
         }
     }
 }

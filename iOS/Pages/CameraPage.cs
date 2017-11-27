@@ -7,6 +7,9 @@ using Xamarin.Forms.Platform.iOS;
 using AVFoundation;
 using Foundation;
 using UIKit;
+using Partfinder7000.ViewModels;
+using Partfinder7000.Pages;
+using Microsoft.AppCenter.Analytics;
 
 /*
  * AVFoundation Reference: http://red-glasses.com/index.php/tutorials/ios4-take-photos-with-live-video-preview-using-avfoundation/
@@ -32,7 +35,7 @@ namespace Partfinder7000.iOS
         {
             base.ViewDidLoad();
 
-            SetupUserInterface();
+            SetupUi();
             SetupEventHandlers();
 
             AuthorizeCameraUse();
@@ -179,77 +182,48 @@ namespace Partfinder7000.iOS
             return null;
         }
 
-        private void SetupUserInterface()
+        private void SetupUi()
         {
-            var centerButtonX = View.Bounds.GetMidX() - 35f;
-            var topLeftX = View.Bounds.X + 25;
-            var topRightX = View.Bounds.Right - 65;
+            var centerButtonX = View.Bounds.GetMidX();
+            var topLeftX = View.Bounds.X;
+            var topRightX = View.Bounds.Right;
             var bottomButtonY = View.Bounds.Bottom - 85;
             var topButtonY = View.Bounds.Top + 15;
-            var buttonWidth = 70;
-            var buttonHeight = 70;
+            var buttonWidth = 150;
+            var buttonHeight = 60;
 
             liveCameraStream = new UIView()
             {
-                Frame = new CGRect(0f, 0f, 320f, View.Bounds.Height)
+                Frame = new CGRect(0f, 0f, View.Bounds.Width, View.Bounds.Height)
             };
 
             takePhotoButton = new UIButton()
             {
-                Frame = new CGRect(centerButtonX, bottomButtonY, buttonWidth, buttonHeight)
+                Frame = new CGRect(centerButtonX - (buttonWidth / 2), bottomButtonY, buttonWidth, buttonHeight)
             };
-            takePhotoButton.SetTitle("Take Photo", UIControlState.Normal);
-
-            //takePhotoButton.SetBackgroundImage(UIImage.FromFile("TakePhotoButton.png"), UIControlState.Normal);
-
-            toggleCameraButton = new UIButton()
-            {
-                Frame = new CGRect(topRightX, topButtonY + 5, 35, 26)
-            };
-
-            toggleCameraButton.SetBackgroundImage(UIImage.FromFile("ToggleCameraButton.png"), UIControlState.Normal);
-
-            toggleFlashButton = new UIButton()
-            {
-                Frame = new CGRect(topLeftX, topButtonY, 37, 37)
-            };
-            toggleFlashButton.SetBackgroundImage(UIImage.FromFile("NoFlashButton.png"), UIControlState.Normal);
+            takePhotoButton.SetTitle("Identify", UIControlState.Normal);
+            takePhotoButton.BackgroundColor = UIColor.FromRGB(22, 22, 108);
+            takePhotoButton.Layer.CornerRadius = 10;
+            takePhotoButton.Layer.BorderColor = UIColor.White.CGColor;
+            takePhotoButton.Layer.BorderWidth = 1;
+            takePhotoButton.AccessibilityIdentifier = "takePhotoButton";
 
             View.Add(liveCameraStream);
             View.Add(takePhotoButton);
-            View.Add(toggleCameraButton);
-            View.Add(toggleFlashButton);
         }
 
         private void SetupEventHandlers()
         {
             takePhotoButton.TouchUpInside += (object sender, EventArgs e) => {
                 CapturePhoto();
-            };
-
-            toggleCameraButton.TouchUpInside += (object sender, EventArgs e) => {
-                ToggleFrontBackCamera();
-            };
-
-            toggleFlashButton.TouchUpInside += (object sender, EventArgs e) => {
-                ToggleFlash();
+                Analytics.TrackEvent(Events.PhotoCaptured.ToString());
             };
         }
 
         public async void SendPhoto(byte[] image)
         {
-            //var resultPage = new ResultPage(image);
-            //App.Current.MainPage.Navigation.PushModalAsync(resultPage);
-
-
-            /*
-            var navigationPage = new NavigationPage (new DrawMomentPage (image)) {
-                BarBackgroundColor = Colors.NavigationBarColor,
-                BarTextColor = Colors.NavigationBarTextColor
-            };
-            */
-
-            //await App.Current.MainPage.Navigation.PushModalAsync (navigationPage, false);
+            var model = new IdentificationViewModel(image);
+            await App.Current.MainPage.Navigation.PushModalAsync(new ResultPage(model));
         }
     }
 }
