@@ -28,8 +28,6 @@ namespace Partfinder7000.Pages
         {
             this.image.Source = ImageSource.FromStream(() => new MemoryStream(model.ImageData));
             var result = await model.IdentifyImage();
-
-
             lblDone.IsVisible = true;
 
             var url = ProductSearcher.GetSearchUrlForProduct(result);
@@ -38,7 +36,9 @@ namespace Partfinder7000.Pages
             {
                 Source = new UrlWebViewSource { Url = url }
             };
-            await Navigation.PushAsync(new ContentPage { Content = webView });
+
+            this.Content = webView;
+            //await Navigation.PushAsync(new ContentPage { Content = webView });
         }
     }
 }
