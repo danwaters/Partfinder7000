@@ -27,21 +27,13 @@ namespace Partfinder7000.UITests
         [Test]
         public void CanViewCameraScreen()
         {
-            /*
-            if (TestEnvironment.Platform != TestPlatform.Local)
-            {
-                AppResult[] results = app.WaitForElement("OK");
-                Assert.IsTrue(results.Any());
-                app.Screenshot("Camera Prompt");
-                app.Tap("OK");
-            }
-            */
-
             app.WaitForElement(e => e.Id("takePhotoButton"));
             app.Screenshot("Camera View");
             app.Tap(e => e.Id("takePhotoButton"));
             app.WaitForElement("resultPageLabel");
             app.Screenshot("On the Results page");
+            app.WaitForElement("lblDone", "Prediction did not finish.", TimeSpan.FromMinutes(2));
+            app.Screenshot("Prediction finished");
         }
     }
 }

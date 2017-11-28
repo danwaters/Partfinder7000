@@ -7,7 +7,6 @@ namespace Partfinder7000.Pages
 {
     public partial class ResultPage : ContentPage
     {
-        private byte[] image;
         private IdentificationViewModel model;
 
         public ResultPage()
@@ -19,11 +18,14 @@ namespace Partfinder7000.Pages
             : this()
         {
             this.model = model;
+            lblResult.Text = "Predicting ...";
         }
 
         protected override async void OnAppearing()
         {
-            await model.IdentifyImage();
+            var result = await model.IdentifyImage();
+            lblResult.Text = result.Predictions[0].Tag;
+            lblDone.IsVisible = true;
         }
     }
 }
