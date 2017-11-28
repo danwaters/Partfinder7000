@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="Partfinder7000.Pages.ResultPage">
 	<ContentPage.Content>
         <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Orientation="Vertical">
+            <Image BackgroundColor="Silver" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" x:Name="image" WidthRequest="350" HeightRequest="300" Aspect="AspectFit"/>
             <Label AutomationId="resultPageLabel" Text="Result page, delete me" x:Name="lblResult"/>
             <Label AutomationId="lblDone" IsVisible="false" Text="Prediction complete" x:Name="lblDone"/>
         </StackLayout>

@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDisplayName</key>
-	<string>Partfinder7000</string>
-	<key>CFBundleName</key>
-	<string>Partfinder7000</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.danwaters.azuresample.Partfinder7000</string>
 	<key>CFBundleShortVersionString</key>
@@ -40,9 +36,11 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>XSAppIconAssets</key>
-	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app uses your camera to identify products and parts. </string>
+	<key>CFBundleName</key>
+	<string>Part Finder 7000</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>

@@ -5,11 +5,14 @@ namespace Partfinder7000
 {
     public partial class App : Application
     {
+        public static bool MockCamera { get; set; }
+
         public App()
         {
+            MockCamera = false;
             InitializeComponent();
 
-            MainPage = new CameraPage();
+            MainPage = new NavigationPage(new CameraPage());
         }
 
         protected override void OnStart()

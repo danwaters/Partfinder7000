@@ -17,7 +17,7 @@ namespace Partfinder7000.Services
             client.DefaultRequestHeaders.Add("Prediction-Key", Keys.PredictionApiKey);
 
             // Prediction URL - replace this example URL with your valid prediction URL.
-            string url = "https://southcentralus.api.cognitive.microsoft.com/customvision/v1.0/Prediction/06c1c15a-2ecd-4e20-9ab2-37a789080137/image?iterationId=ff9b9c3e-660e-40a8-a9f9-90e0d7fe31d5";
+            string url = "https://southcentralus.api.cognitive.microsoft.com/customvision/v1.0/Prediction/06c1c15a-2ecd-4e20-9ab2-37a789080137/image";
 
             HttpResponseMessage response;
 

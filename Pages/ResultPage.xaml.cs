@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Partfinder7000.BusinessLogic;
 using Partfinder7000.ViewModels;
 using Xamarin.Forms;
+using System.Linq;
+using System.IO;
 
 namespace Partfinder7000.Pages
 {
@@ -23,9 +26,19 @@ namespace Partfinder7000.Pages
 
         protected override async void OnAppearing()
         {
+            this.image.Source = ImageSource.FromStream(() => new MemoryStream(model.ImageData));
             var result = await model.IdentifyImage();
-            lblResult.Text = result.Predictions[0].Tag;
+
+
             lblDone.IsVisible = true;
+
+            var url = ProductSearcher.GetSearchUrlForProduct(result);
+
+            var webView = new WebView
+            {
+                Source = new UrlWebViewSource { Url = url }
+            };
+            await Navigation.PushAsync(new ContentPage { Content = webView });
         }
     }
 }

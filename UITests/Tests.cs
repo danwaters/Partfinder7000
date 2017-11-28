@@ -25,15 +25,22 @@ namespace Partfinder7000.UITests
         }
 
         [Test]
-        public void CanViewCameraScreen()
+        public void CanIdentifyMockImage()
         {
             app.WaitForElement(e => e.Id("takePhotoButton"));
             app.Screenshot("Camera View");
+
+            app.Invoke("EnableImageMocking:", "");
+
             app.Tap(e => e.Id("takePhotoButton"));
             app.WaitForElement("resultPageLabel");
             app.Screenshot("On the Results page");
             app.WaitForElement("lblDone", "Prediction did not finish.", TimeSpan.FromMinutes(2));
             app.Screenshot("Prediction finished");
+            app.WaitForElement(e => e.WebView());
+            app.Screenshot("Search results loading");
+            app.WaitForElement(e => e.WebView().Css(".b_searchbox"));
+            app.Screenshot("Search results are displayed");
         }
     }
 }

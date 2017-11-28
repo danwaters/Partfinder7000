@@ -187,7 +187,7 @@ namespace Partfinder7000.iOS
             var centerButtonX = View.Bounds.GetMidX();
             var topLeftX = View.Bounds.X;
             var topRightX = View.Bounds.Right;
-            var bottomButtonY = View.Bounds.Bottom - 85;
+            var bottomButtonY = View.Bounds.Bottom - 200;
             var topButtonY = View.Bounds.Top + 15;
             var buttonWidth = 150;
             var buttonHeight = 60;
@@ -214,7 +214,8 @@ namespace Partfinder7000.iOS
 
         private void SetupEventHandlers()
         {
-            takePhotoButton.TouchUpInside += (object sender, EventArgs e) => {
+            takePhotoButton.TouchUpInside += (object sender, EventArgs e) =>
+            {
                 CapturePhoto();
                 Analytics.TrackEvent(Events.PhotoCaptured.ToString());
             };
@@ -222,8 +223,20 @@ namespace Partfinder7000.iOS
 
         public async void SendPhoto(byte[] image)
         {
-            var model = new IdentificationViewModel(image);
-            await App.Current.MainPage.Navigation.PushModalAsync(new ResultPage(model));
+            IdentificationViewModel model;
+
+            if (App.MockCamera)
+            {
+                var testGreenImage = UIImage.FromBundle("greenSampleSm.png");
+                var imageData = testGreenImage.AsPNG().ToArray();
+                model = new IdentificationViewModel(imageData);
+            }
+            else
+            {
+                model = new IdentificationViewModel(image);
+            }
+
+            await App.Current.MainPage.Navigation.PushAsync(new ResultPage(model));
         }
     }
 }
