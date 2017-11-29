@@ -1,6 +1,8 @@
 # Part Finder 7000
 Part Finder 7000 is an example iOS app that finds parts using Azure Cognitive Services (Custom Vision), Azure Search, Azure Blob Storage and Xamarin.Forms.
 
+This is a visual search app. The user uses the camera to automatically identify an object ("a part"), and is then redirected to a list of relevant information about that part. The toggle switch, when off, returns a Bing search (see 1st gif). When the toggle switch is on, it uses Azure Search to return data from documents in Blob Storage with text matching the part number (see 2nd gif).
+
 <img align="left" src="https://user-images.githubusercontent.com/780735/33389087-65fb60a6-d4f7-11e7-99fd-99ec574cd4ab.gif" width="200"/>
 <img src="https://user-images.githubusercontent.com/780735/33389101-6f05392e-d4f7-11e7-86cd-0f4df2e421fc.gif" width="200"/>
 
