@@ -6,10 +6,13 @@ namespace Partfinder7000
     public partial class App : Application
     {
         public static bool MockCamera { get; set; }
+        public static bool UseBing { get; set; }
 
         public App()
         {
             MockCamera = false;
+            UseBing = true;
+
             InitializeComponent();
 
             MainPage = new NavigationPage(new CameraPage());

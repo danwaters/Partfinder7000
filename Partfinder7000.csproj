@@ -29,8 +29,11 @@
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="App.xaml" />
-    <EmbeddedResource Include="Partfinder7000Page.xaml" />
     <EmbeddedResource Include="Pages\ResultPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pages\EnterpriseSearchResultPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -38,9 +41,6 @@
   <ItemGroup>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Partfinder7000Page.xaml.cs">
-      <DependentUpon>Partfinder7000Page.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Pages\CameraPage.cs" />
@@ -54,6 +54,11 @@
     <Compile Include="Services\VisionPredictionService.cs" />
     <Compile Include="PredictionResult.cs" />
     <Compile Include="BusinessLogic\ProductSearcher.cs" />
+    <Compile Include="Services\EnterpriseSearchService.cs" />
+    <Compile Include="Pages\EnterpriseSearchResultPage.xaml.cs">
+      <DependentUpon>EnterpriseSearchResultPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SearchResultsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core">

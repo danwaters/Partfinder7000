@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 using System.Net.Http;
-using System.Collections.Generic;
-using Partfinder7000.ViewModels;
 using System.Net.Http.Headers;
 using Newtonsoft.Json;
 

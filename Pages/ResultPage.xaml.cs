@@ -5,6 +5,8 @@ using Partfinder7000.ViewModels;
 using Xamarin.Forms;
 using System.Linq;
 using System.IO;
+using Partfinder7000.Services;
+using System.Threading.Tasks;
 
 namespace Partfinder7000.Pages
 {
@@ -30,15 +32,31 @@ namespace Partfinder7000.Pages
             var result = await model.IdentifyImage();
             lblDone.IsVisible = true;
 
-            var url = ProductSearcher.GetSearchUrlForProduct(result);
-
-            var webView = new WebView
+            if (App.UseBing)
             {
-                Source = new UrlWebViewSource { Url = url }
-            };
+                var url = ProductSearcher.GetSearchUrlForProduct(result);
 
-            this.Content = webView;
-            //await Navigation.PushAsync(new ContentPage { Content = webView });
+                var webView = new WebView
+                {
+                    Source = new UrlWebViewSource { Url = url }
+                };
+                this.Content = webView;
+            }
+            else
+            {
+                await UseOtherSearch(result);
+            }
+        }
+
+        private async Task UseOtherSearch(PredictionResult result)
+        {
+            var service = new EnterpriseSearchService();
+            var topResult = result.Predictions.OrderByDescending(p => p.Probability).First().Tag;
+            var results = await service.Search(topResult);
+
+
+            await Navigation.PushAsync(new EnterpriseSearchResultPage(results));
+            Navigation.RemovePage(this);
         }
     }
 }
