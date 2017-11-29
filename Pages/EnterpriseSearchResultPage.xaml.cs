@@ -12,7 +12,7 @@ namespace Partfinder7000.Pages
             InitializeComponent();
 
             var model = new SearchResultsViewModel(results);
-            this.lblOriginalQuery.Text = results.OriginalQuery;
+            this.lblOriginalQuery.Text = $"Your search: {results.OriginalQuery}";
             this.BindingContext = model;
         }
 
