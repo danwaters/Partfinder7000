@@ -7,6 +7,7 @@ using System.Linq;
 using System.IO;
 using Partfinder7000.Services;
 using System.Threading.Tasks;
+using Microsoft.AppCenter.Analytics;
 
 namespace Partfinder7000.Pages
 {
@@ -34,6 +35,7 @@ namespace Partfinder7000.Pages
 
             if (App.UseBing)
             {
+                Analytics.TrackEvent(Events.BingSearch.ToString());
                 var url = ProductSearcher.GetSearchUrlForProduct(result);
 
                 var webView = new WebView
@@ -54,6 +56,12 @@ namespace Partfinder7000.Pages
             var topResult = result.Predictions.OrderByDescending(p => p.Probability).First().Tag;
             var results = await service.Search(topResult);
 
+            Analytics.TrackEvent(Events.EnterpriseSearch.ToString(),
+                                 new Dictionary<string, string>
+                                 {
+                                     ["query"] = topResult,
+                                     ["resultCount"] = results.Results.Count().ToString()
+                                 });
 
             await Navigation.PushAsync(new EnterpriseSearchResultPage(results));
             Navigation.RemovePage(this);

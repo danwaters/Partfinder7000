@@ -1,4 +1,5 @@
-﻿using Partfinder7000.Services;
+﻿using Microsoft.AppCenter.Analytics;
+using Partfinder7000.Services;
 using Partfinder7000.ViewModels;
 using Xamarin.Forms;
 
@@ -11,6 +12,7 @@ namespace Partfinder7000.Pages
             InitializeComponent();
 
             var model = new SearchResultsViewModel(results);
+            this.lblOriginalQuery.Text = results.OriginalQuery;
             this.BindingContext = model;
         }
 
@@ -27,6 +29,7 @@ namespace Partfinder7000.Pages
                 },
                 OriginalQuery = "search"
             };
+            this.lblOriginalQuery.Text = sampleList.OriginalQuery;
 
             var sampleViewModel = new SearchResultsViewModel(sampleList);
             this.BindingContext = sampleViewModel;
@@ -34,6 +37,7 @@ namespace Partfinder7000.Pages
 
         async void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
+            Analytics.TrackEvent(Events.DocumentSearchHit.ToString());
             var item = (SearchResultViewModel)e.Item;
             var url = item.StorageUrl;
 

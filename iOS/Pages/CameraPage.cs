@@ -27,6 +27,7 @@ namespace Partfinder7000.iOS
         AVCaptureDeviceInput captureDeviceInput;
         UIButton toggleCameraButton;
         UIButton toggleFlashButton;
+        UISwitch searchSwitch;
         UIView liveCameraStream;
         AVCaptureStillImageOutput stillImageOutput;
         UIButton takePhotoButton;
@@ -208,8 +209,11 @@ namespace Partfinder7000.iOS
             takePhotoButton.Layer.BorderWidth = 1;
             takePhotoButton.AccessibilityIdentifier = "takePhotoButton";
 
+            searchSwitch = new UISwitch { Frame = new CGRect(40, 40, 50, 50), On = false };
+
             View.Add(liveCameraStream);
             View.Add(takePhotoButton);
+            View.Add(searchSwitch);
         }
 
         private void SetupEventHandlers()
@@ -218,6 +222,11 @@ namespace Partfinder7000.iOS
             {
                 CapturePhoto();
                 Analytics.TrackEvent(Events.PhotoCaptured.ToString());
+            };
+
+            searchSwitch.TouchUpInside += (object sender, EventArgs e) =>
+            {
+                App.UseBing = !searchSwitch.On;
             };
         }
 

@@ -6,5 +6,8 @@ namespace Partfinder7000
         PhotoCaptured,
         PhotoUploaded,
         IdentificationReceived,
+        DocumentSearchHit,
+        BingSearch,
+        EnterpriseSearch,
     }
 }
